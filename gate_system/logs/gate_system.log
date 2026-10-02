@@ -3142,3 +3142,550 @@ telegram.error.TimedOut: Timed out
 2026-08-20 15:56:19,045 | INFO     | gate_system.main | Все сервисы остановлены
 2026-08-20 15:56:19,045 | INFO     | gate_system.events | ⏹️ Система остановлена
 2026-08-20 15:56:19,045 | INFO     | gate_system.main | gate_system остановлен
+2026-09-02 10:28:04,246 | INFO     | gate_system.main | Запуск gate_system (реле=stub, telegram=вкл)
+2026-09-02 10:28:04,247 | INFO     | gate_system.events | ▶️ Система запущена
+2026-09-02 10:28:05,781 | INFO     | gate_system.detector | Загрузка модели транспорта: models/yolov8n.pt
+2026-09-02 10:28:09,723 | INFO     | gate_system.detector | Загрузка модели номеров: models/best.pt
+2026-09-02 10:28:09,750 | INFO     | gate_system.ocr  | Движок OCR: Nomeroff-Net
+2026-09-02 10:28:09,754 | INFO     | gate_system.main | Камера 'camera' (роль=entry, движение=False): /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-09-02 10:28:09,754 | INFO     | gate_system.main | Сервис 'vision:camera' запущен
+2026-09-02 10:28:09,754 | INFO     | gate_system.main | Сервис 'network' запущен
+2026-09-02 10:28:09,754 | INFO     | gate_system.main | Сервис 'diagnostics' запущен
+2026-09-02 10:28:09,754 | INFO     | gate_system.main | Сервис 'watchdog' запущен
+2026-09-02 10:28:09,754 | INFO     | gate_system.network | NetworkMonitor запущен (интервал 10 с)
+2026-09-02 10:28:09,754 | INFO     | gate_system.main | Сервис 'telegram' запущен
+2026-09-02 10:28:09,754 | INFO     | gate_system.main | Запущены сервисы: vision:camera, network, diagnostics, watchdog, telegram
+2026-09-02 10:28:09,754 | INFO     | gate_system.diagnostics | Самодиагностика запущена (интервал 60 с)
+2026-09-02 10:28:09,754 | INFO     | gate_system.watchdog | Watchdog запущен (таймаут 120 с)
+2026-09-02 10:28:09,755 | INFO     | gate_system.network | Интернет доступен
+2026-09-02 10:28:09,755 | INFO     | gate_system.events | 🌐 Интернет появился
+2026-09-02 10:28:09,773 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-09-02 10:28:09,773 | INFO     | gate_system.pipeline | Пайплайн распознавания запущен
+2026-09-02 10:28:09,788 | WARNING  | gate_system.diagnostics | Диагностика: камера не отвечает
+2026-09-02 10:28:10,083 | INFO     | gate_system.telegram | Telegram-бот запущен
+2026-09-02 10:28:10,731 | INFO     | gate_system.pipeline | Обнаружен номер — активный режим (частая обработка)
+2026-09-02 10:28:13,252 | INFO     | gate_system.ocr.nomeroff | Загрузчик моделей Nomeroff заменён на устойчивый (с докачкой)
+2026-09-02 10:28:13,252 | INFO     | gate_system.ocr.nomeroff | Загрузка пайплайна Nomeroff-Net: number_plate_detection_and_reading
+2026-09-02 10:28:15,316 | INFO     | gate_system.network | NetworkMonitor остановлен
+2026-09-02 10:28:15,316 | INFO     | gate_system.diagnostics | Самодиагностика остановлена
+2026-09-02 10:28:15,316 | INFO     | gate_system.watchdog | Watchdog остановлен
+2026-09-02 10:28:15,317 | INFO     | gate_system.main | Сервис 'network' остановлен
+2026-09-02 10:28:15,317 | INFO     | gate_system.main | Сервис 'diagnostics' остановлен
+2026-09-02 10:28:15,317 | INFO     | gate_system.main | Сервис 'watchdog' остановлен
+2026-09-02 10:28:20,321 | ERROR    | telegram.ext.Updater | Error while calling `get_updates` one more time to mark all fetched updates as read: %s. Suppressing error to ensure graceful shutdown. When polling for updates is restarted, updates may be fetched again. Please adjust timeouts via `ApplicationBuilder` or the parameter `get_updates_request` of `Bot`.
+Traceback (most recent call last):
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/.venv312/lib/python3.12/site-packages/httpx/_transports/default.py", line 72, in map_httpcore_exceptions
+    yield
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/.venv312/lib/python3.12/site-packages/httpx/_transports/default.py", line 377, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/.venv312/lib/python3.12/site-packages/httpcore/_async/connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/.venv312/lib/python3.12/site-packages/httpcore/_async/connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/.venv312/lib/python3.12/site-packages/httpcore/_async/connection.py", line 101, in handle_async_request
+    raise exc
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/.venv312/lib/python3.12/site-packages/httpcore/_async/connection.py", line 78, in handle_async_request
+    stream = await self._connect(request)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/.venv312/lib/python3.12/site-packages/httpcore/_async/connection.py", line 156, in _connect
+    stream = await stream.start_tls(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/.venv312/lib/python3.12/site-packages/httpcore/_backends/anyio.py", line 67, in start_tls
+    with map_exceptions(exc_map):
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/.venv312/lib/python3.12/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/.venv312/lib/python3.12/site-packages/telegram/request/_httpxrequest.py", line 292, in do_request
+    res = await self._client.request(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/.venv312/lib/python3.12/site-packages/httpx/_client.py", line 1585, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/.venv312/lib/python3.12/site-packages/httpx/_client.py", line 1674, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/.venv312/lib/python3.12/site-packages/httpx/_client.py", line 1702, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/.venv312/lib/python3.12/site-packages/httpx/_client.py", line 1739, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/.venv312/lib/python3.12/site-packages/httpx/_client.py", line 1776, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/.venv312/lib/python3.12/site-packages/httpx/_transports/default.py", line 376, in handle_async_request
+    with map_httpcore_exceptions():
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/.venv312/lib/python3.12/site-packages/httpx/_transports/default.py", line 89, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/.venv312/lib/python3.12/site-packages/telegram/ext/_updater.py", line 438, in _get_updates_cleanup
+    await self.bot.get_updates(
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/.venv312/lib/python3.12/site-packages/telegram/ext/_extbot.py", line 649, in get_updates
+    updates = await super().get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/.venv312/lib/python3.12/site-packages/telegram/_bot.py", line 4366, in get_updates
+    await self._post(
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/.venv312/lib/python3.12/site-packages/telegram/_bot.py", line 623, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/.venv312/lib/python3.12/site-packages/telegram/ext/_extbot.py", line 355, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/.venv312/lib/python3.12/site-packages/telegram/_bot.py", line 652, in _do_post
+    result = await request.post(
+             ^^^^^^^^^^^^^^^^^^^
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/.venv312/lib/python3.12/site-packages/telegram/request/_baserequest.py", line 201, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/.venv312/lib/python3.12/site-packages/telegram/request/_baserequest.py", line 333, in _request_wrapper
+    code, payload = await self.do_request(
+                    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/.venv312/lib/python3.12/site-packages/telegram/request/_httpxrequest.py", line 309, in do_request
+    raise TimedOut from err
+telegram.error.TimedOut: Timed out
+2026-09-02 10:28:20,328 | INFO     | gate_system.main | Сервис 'telegram' остановлен
+2026-09-02 10:28:20,328 | INFO     | gate_system.main | Все сервисы остановлены
+2026-09-02 10:28:20,328 | INFO     | gate_system.events | ⏹️ Система остановлена
+2026-09-02 10:28:20,329 | INFO     | gate_system.main | gate_system остановлен
+2026-10-01 15:24:54,131 | INFO     | gate_system.main | Запуск gate_system (реле=stub, telegram=вкл)
+2026-10-01 15:24:54,132 | INFO     | gate_system.events | ▶️ Система запущена
+2026-10-01 15:24:54,154 | CRITICAL | root             | Необработанное исключение
+Traceback (most recent call last):
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/main.py", line 363, in <module>
+    main()
+    ~~~~^^
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/main.py", line 356, in main
+    app = build_app(cfg)
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/main.py", line 211, in build_app
+    from camera import RTSPCamera
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/camera.py", line 19, in <module>
+    import cv2
+ModuleNotFoundError: No module named 'cv2'
+2026-10-01 15:30:35,628 | INFO     | gate_system.main | Запуск gate_system (реле=stub, telegram=вкл)
+2026-10-01 15:30:35,628 | INFO     | gate_system.events | ▶️ Система запущена
+2026-10-01 15:30:53,841 | INFO     | gate_system.detector | Загрузка модели транспорта: models/yolov8n.pt
+2026-10-01 15:31:03,604 | INFO     | gate_system.detector | Загрузка модели номеров: models/best.pt
+2026-10-01 15:31:03,624 | INFO     | gate_system.ocr  | Движок OCR: Nomeroff-Net
+2026-10-01 15:31:03,634 | INFO     | gate_system.main | Камера 'camera' (роль=entry, движение=False): /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:31:03,634 | INFO     | gate_system.main | Сервис 'vision:camera' запущен
+2026-10-01 15:31:03,634 | INFO     | gate_system.main | Сервис 'network' запущен
+2026-10-01 15:31:03,634 | INFO     | gate_system.main | Сервис 'diagnostics' запущен
+2026-10-01 15:31:03,634 | INFO     | gate_system.main | Сервис 'watchdog' запущен
+2026-10-01 15:31:03,634 | INFO     | gate_system.network | NetworkMonitor запущен (интервал 10 с)
+2026-10-01 15:31:03,634 | INFO     | gate_system.main | Сервис 'telegram' запущен
+2026-10-01 15:31:03,634 | INFO     | gate_system.diagnostics | Самодиагностика запущена (интервал 60 с)
+2026-10-01 15:31:03,634 | INFO     | gate_system.watchdog | Watchdog запущен (таймаут 120 с)
+2026-10-01 15:31:03,634 | INFO     | gate_system.main | Запущены сервисы: vision:camera, network, diagnostics, watchdog, telegram
+2026-10-01 15:31:03,635 | INFO     | gate_system.network | Интернет доступен
+2026-10-01 15:31:03,635 | INFO     | gate_system.events | 🌐 Интернет появился
+2026-10-01 15:31:03,836 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:31:04,007 | INFO     | gate_system.pipeline | Пайплайн распознавания запущен
+2026-10-01 15:31:04,009 | WARNING  | gate_system.diagnostics | Диагностика: камера не отвечает
+2026-10-01 15:31:04,854 | INFO     | gate_system.telegram | Telegram-бот запущен
+2026-10-01 15:31:06,708 | INFO     | gate_system.pipeline | Обнаружен номер — активный режим (частая обработка)
+2026-10-01 15:31:26,483 | ERROR    | gate_system.ocr.nomeroff | Не удалось загрузить Nomeroff-Net (проверьте загрузку моделей)
+2026-10-01 15:31:26,483 | ERROR    | gate_system.ocr.nomeroff | Ошибка Nomeroff-Net при распознавании
+Traceback (most recent call last):
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/nomeroff_ocr.py", line 199, in read_text
+    candidates = self._recognizer(plate_image)
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/nomeroff_ocr.py", line 151, in __call__
+    self._ensure_loaded()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/nomeroff_ocr.py", line 133, in _ensure_loaded
+    from nomeroff_net import pipeline  # тяжёлый импорт
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/venv/lib/python3.14/site-packages/nomeroff_net/__init__.py", line 1, in <module>
+    from nomeroff_net.pipes.number_plate_text_readers.text_detector import TextDetector
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/venv/lib/python3.14/site-packages/nomeroff_net/pipes/number_plate_text_readers/text_detector.py", line 7, in <module>
+    from .base.ocr import OCR, device_torch
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/venv/lib/python3.14/site-packages/nomeroff_net/pipes/number_plate_text_readers/base/ocr.py", line 10, in <module>
+    import pytorch_lightning as pl
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/venv/lib/python3.14/site-packages/pytorch_lightning/__init__.py", line 45, in <module>
+    __import__("pkg_resources").declare_namespace(__name__)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'pkg_resources'
+2026-10-01 15:31:28,562 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:31:28,563 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:31:28,563 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:31:29,587 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:31:29,587 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:31:29,587 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:31:31,958 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:31:31,958 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:31:31,958 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:31:32,977 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:31:32,979 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:31:32,979 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:31:35,316 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:31:35,316 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:31:35,316 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:31:36,338 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:31:36,338 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:31:36,338 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:31:38,650 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:31:38,650 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:31:38,650 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:31:39,665 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:31:39,665 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:31:39,665 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:31:42,175 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:31:42,175 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:31:42,176 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:31:43,197 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:31:43,197 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:31:43,197 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:31:45,635 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:31:45,635 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:31:45,635 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:31:46,654 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:31:46,654 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:31:46,655 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:31:49,053 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:31:49,053 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:31:49,053 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:31:50,067 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:31:50,068 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:31:50,068 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:31:52,461 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:31:52,461 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:31:52,461 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:31:53,482 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:31:53,483 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:31:53,483 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:31:55,801 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:31:55,801 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:31:55,801 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:31:56,824 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:31:56,826 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:31:56,826 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:31:59,182 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:31:59,182 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:31:59,182 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:32:00,204 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:00,204 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:32:00,204 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:32:02,581 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:32:02,581 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:02,581 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:32:03,603 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:03,603 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:32:03,604 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:32:05,954 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:32:05,954 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:05,954 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:32:06,976 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:06,977 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:32:06,977 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:32:09,383 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:32:09,383 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:09,383 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:32:10,413 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:10,413 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:32:10,413 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:32:12,763 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:32:12,763 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:12,763 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:32:13,785 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:13,785 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:32:13,785 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:32:16,181 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:32:16,181 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:16,181 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:32:17,206 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:17,206 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:32:17,207 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:32:19,556 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:32:19,556 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:19,556 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:32:20,576 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:20,577 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:32:20,578 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:32:23,132 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:32:23,133 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:23,133 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:32:24,150 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:24,150 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:32:24,150 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:32:26,548 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:32:26,548 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:26,548 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:32:27,566 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:27,566 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:32:27,566 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:32:29,989 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:32:29,989 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:29,989 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:32:31,008 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:31,008 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:32:31,008 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:32:33,453 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:32:33,453 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:33,453 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:32:34,471 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:34,471 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:32:34,471 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:32:36,945 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:32:36,945 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:36,945 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:32:37,962 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:37,962 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:32:37,962 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:32:40,362 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:32:40,362 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:40,362 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:32:41,387 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:41,387 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:32:41,387 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:32:43,848 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:32:43,848 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:43,848 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:32:44,869 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:44,869 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:32:44,870 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:32:47,346 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:32:47,346 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:47,346 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:32:48,369 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:48,370 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:32:48,370 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:32:50,752 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:32:50,752 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:50,752 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:32:51,773 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:51,773 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:32:51,773 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:32:54,133 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:32:54,134 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:54,134 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:32:55,147 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:55,147 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:32:55,147 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:32:57,920 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:32:57,920 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:57,920 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:32:58,939 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:32:58,939 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:32:58,939 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:33:01,322 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:33:01,322 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:33:01,322 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:33:02,358 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:33:02,358 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:33:02,358 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:33:04,723 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:33:04,723 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:33:04,723 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:33:05,744 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:33:05,744 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:33:05,744 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:33:08,111 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:33:08,111 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:33:08,111 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:33:09,131 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:33:09,132 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:33:09,132 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:33:11,514 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:33:11,514 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:33:11,514 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:33:12,530 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:33:12,530 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:33:12,530 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:33:14,982 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:33:14,982 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:33:14,982 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:33:16,004 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:33:16,005 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:33:16,005 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:33:18,504 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:33:18,504 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:33:18,504 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:33:19,525 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:33:19,526 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:33:19,526 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:33:22,010 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:33:22,010 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:33:22,010 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:33:23,023 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:33:23,023 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:33:23,024 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:33:25,491 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:33:25,491 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:33:25,491 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:33:26,507 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:33:26,507 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:33:26,507 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:33:28,967 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:33:28,967 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:33:28,967 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:33:29,981 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:33:29,982 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:33:29,982 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:33:30,713 | INFO     | gate_system.network | NetworkMonitor остановлен
+2026-10-01 15:33:30,713 | INFO     | gate_system.main | Сервис 'network' остановлен
+2026-10-01 15:33:30,713 | INFO     | gate_system.watchdog | Watchdog остановлен
+2026-10-01 15:33:30,713 | INFO     | gate_system.diagnostics | Самодиагностика остановлена
+2026-10-01 15:33:30,713 | INFO     | gate_system.main | Сервис 'watchdog' остановлен
+2026-10-01 15:33:30,713 | INFO     | gate_system.main | Сервис 'diagnostics' остановлен
+2026-10-01 15:33:30,714 | INFO     | gate_system.camera | Камера закрыта
+2026-10-01 15:33:30,714 | INFO     | gate_system.pipeline | Пайплайн распознавания остановлен
+2026-10-01 15:33:30,714 | INFO     | gate_system.main | Сервис 'vision:camera' остановлен
+2026-10-01 15:33:34,050 | INFO     | gate_system.main | Сервис 'telegram' остановлен
+2026-10-01 15:33:34,051 | INFO     | gate_system.main | Все сервисы остановлены
+2026-10-01 15:33:34,052 | INFO     | gate_system.events | ⏹️ Система остановлена
+2026-10-01 15:33:34,052 | INFO     | gate_system.main | gate_system остановлен
+2026-10-01 15:35:21,633 | INFO     | gate_system.main | Запуск gate_system (реле=stub, telegram=вкл)
+2026-10-01 15:35:21,633 | INFO     | gate_system.events | ▶️ Система запущена
+2026-10-01 15:35:21,691 | CRITICAL | root             | Необработанное исключение
+Traceback (most recent call last):
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/main.py", line 363, in <module>
+    main()
+    ~~~~^^
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/main.py", line 356, in main
+    app = build_app(cfg)
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/main.py", line 211, in build_app
+    from camera import RTSPCamera
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/camera.py", line 19, in <module>
+    import cv2
+ModuleNotFoundError: No module named 'cv2'
+2026-10-01 15:37:43,358 | INFO     | gate_system.main | Запуск gate_system (реле=stub, telegram=вкл)
+2026-10-01 15:37:43,358 | INFO     | gate_system.events | ▶️ Система запущена
+2026-10-01 15:38:01,636 | INFO     | gate_system.detector | Загрузка модели транспорта: models/yolov8n.pt
+2026-10-01 15:38:12,766 | INFO     | gate_system.detector | Загрузка модели номеров: models/best.pt
+2026-10-01 15:38:12,786 | INFO     | gate_system.ocr  | Движок OCR: Nomeroff-Net
+2026-10-01 15:38:12,797 | INFO     | gate_system.main | Камера 'camera' (роль=entry, движение=False): /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:38:12,797 | INFO     | gate_system.main | Сервис 'vision:camera' запущен
+2026-10-01 15:38:12,797 | INFO     | gate_system.main | Сервис 'network' запущен
+2026-10-01 15:38:12,797 | INFO     | gate_system.main | Сервис 'diagnostics' запущен
+2026-10-01 15:38:12,797 | INFO     | gate_system.network | NetworkMonitor запущен (интервал 10 с)
+2026-10-01 15:38:12,797 | INFO     | gate_system.main | Сервис 'watchdog' запущен
+2026-10-01 15:38:12,797 | INFO     | gate_system.main | Сервис 'telegram' запущен
+2026-10-01 15:38:12,798 | INFO     | gate_system.diagnostics | Самодиагностика запущена (интервал 60 с)
+2026-10-01 15:38:12,798 | INFO     | gate_system.main | Запущены сервисы: vision:camera, network, diagnostics, watchdog, telegram
+2026-10-01 15:38:12,798 | INFO     | gate_system.watchdog | Watchdog запущен (таймаут 120 с)
+2026-10-01 15:38:12,798 | INFO     | gate_system.network | Интернет доступен
+2026-10-01 15:38:12,799 | INFO     | gate_system.events | 🌐 Интернет появился
+2026-10-01 15:38:13,070 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:38:13,243 | INFO     | gate_system.pipeline | Пайплайн распознавания запущен
+2026-10-01 15:38:13,260 | WARNING  | gate_system.diagnostics | Диагностика: камера не отвечает
+2026-10-01 15:38:14,035 | INFO     | gate_system.telegram | Telegram-бот запущен
+2026-10-01 15:38:15,873 | INFO     | gate_system.pipeline | Обнаружен номер — активный режим (частая обработка)
+2026-10-01 15:38:36,174 | ERROR    | gate_system.ocr.nomeroff | Не удалось загрузить Nomeroff-Net (проверьте загрузку моделей)
+2026-10-01 15:38:36,174 | ERROR    | gate_system.ocr.nomeroff | Ошибка Nomeroff-Net при распознавании
+Traceback (most recent call last):
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/nomeroff_ocr.py", line 199, in read_text
+    candidates = self._recognizer(plate_image)
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/nomeroff_ocr.py", line 151, in __call__
+    self._ensure_loaded()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/gate_system/nomeroff_ocr.py", line 133, in _ensure_loaded
+    from nomeroff_net import pipeline  # тяжёлый импорт
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/.venv/lib/python3.13/site-packages/nomeroff_net/__init__.py", line 1, in <module>
+    from nomeroff_net.pipes.number_plate_text_readers.text_detector import TextDetector
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/.venv/lib/python3.13/site-packages/nomeroff_net/pipes/number_plate_text_readers/text_detector.py", line 7, in <module>
+    from .base.ocr import OCR, device_torch
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/.venv/lib/python3.13/site-packages/nomeroff_net/pipes/number_plate_text_readers/base/ocr.py", line 10, in <module>
+    import pytorch_lightning as pl
+  File "/Users/artemfarniev2013/WebstormProjects/untitled20/.venv/lib/python3.13/site-packages/pytorch_lightning/__init__.py", line 45, in <module>
+    __import__("pkg_resources").declare_namespace(__name__)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'pkg_resources'
+2026-10-01 15:38:38,182 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:38:38,182 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:38:38,182 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:38:39,203 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:38:39,203 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:38:39,203 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:38:41,474 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:38:41,474 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:38:41,475 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:38:42,493 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:38:42,493 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:38:42,493 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:38:44,840 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:38:44,840 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:38:44,840 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:38:45,858 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:38:45,858 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:38:45,858 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:38:48,241 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:38:48,241 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:38:48,241 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:38:49,258 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:38:49,258 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:38:49,258 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:38:51,622 | WARNING  | gate_system.pipeline | Кадр не получен — переподключение к камере
+2026-10-01 15:38:51,623 | WARNING  | gate_system.camera | Переподключение к камере через 1.0 с: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:38:51,623 | INFO     | gate_system.events | 📷 Камера не отвечает, пытаюсь переподключиться
+2026-10-01 15:38:52,401 | INFO     | gate_system.network | NetworkMonitor остановлен
+2026-10-01 15:38:52,401 | INFO     | gate_system.watchdog | Watchdog остановлен
+2026-10-01 15:38:52,401 | INFO     | gate_system.diagnostics | Самодиагностика остановлена
+2026-10-01 15:38:52,401 | INFO     | gate_system.main | Сервис 'network' остановлен
+2026-10-01 15:38:52,402 | INFO     | gate_system.main | Сервис 'watchdog' остановлен
+2026-10-01 15:38:52,402 | INFO     | gate_system.main | Сервис 'diagnostics' остановлен
+2026-10-01 15:38:52,644 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-01 15:38:52,645 | INFO     | gate_system.camera | Камера восстановлена
+2026-10-01 15:38:52,645 | INFO     | gate_system.events | 📷 Камера снова на связи
+2026-10-01 15:38:52,646 | INFO     | gate_system.camera | Камера закрыта
+2026-10-01 15:38:52,646 | INFO     | gate_system.pipeline | Пайплайн распознавания остановлен
+2026-10-01 15:38:52,646 | INFO     | gate_system.main | Сервис 'vision:camera' остановлен
+2026-10-01 15:38:52,744 | INFO     | gate_system.main | Сервис 'telegram' остановлен
+2026-10-01 15:38:52,745 | INFO     | gate_system.main | Все сервисы остановлены
+2026-10-01 15:38:52,745 | INFO     | gate_system.events | ⏹️ Система остановлена
+2026-10-01 15:38:52,745 | INFO     | gate_system.main | gate_system остановлен
+2026-10-02 16:57:44,933 | INFO     | gate_system.main | Запуск gate_system (реле=stub, telegram=вкл)
+2026-10-02 16:57:44,934 | INFO     | gate_system.events | ▶️ Система запущена
+2026-10-02 16:57:46,498 | INFO     | gate_system.detector | Загрузка модели транспорта: models/yolov8n.pt
+2026-10-02 16:57:50,651 | INFO     | gate_system.detector | Загрузка модели номеров: models/best.pt
+2026-10-02 16:57:50,671 | INFO     | gate_system.ocr  | Движок OCR: Nomeroff-Net
+2026-10-02 16:57:50,675 | INFO     | gate_system.main | Камера 'camera' (роль=entry, движение=False): /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-02 16:57:50,675 | INFO     | gate_system.main | Сервис 'vision:camera' запущен
+2026-10-02 16:57:50,675 | INFO     | gate_system.main | Сервис 'network' запущен
+2026-10-02 16:57:50,675 | INFO     | gate_system.main | Сервис 'diagnostics' запущен
+2026-10-02 16:57:50,675 | INFO     | gate_system.main | Сервис 'watchdog' запущен
+2026-10-02 16:57:50,675 | INFO     | gate_system.main | Сервис 'telegram' запущен
+2026-10-02 16:57:50,675 | INFO     | gate_system.main | Запущены сервисы: vision:camera, network, diagnostics, watchdog, telegram
+2026-10-02 16:57:50,675 | INFO     | gate_system.network | NetworkMonitor запущен (интервал 10 с)
+2026-10-02 16:57:50,675 | INFO     | gate_system.diagnostics | Самодиагностика запущена (интервал 60 с)
+2026-10-02 16:57:50,675 | INFO     | gate_system.watchdog | Watchdog запущен (таймаут 120 с)
+2026-10-02 16:57:50,676 | INFO     | gate_system.network | Интернет доступен
+2026-10-02 16:57:50,676 | INFO     | gate_system.events | 🌐 Интернет появился
+2026-10-02 16:57:50,700 | INFO     | gate_system.camera | Камера подключена: /Users/artemfarniev2013/WebstormProjects/untitled20/car3.mp4
+2026-10-02 16:57:50,711 | INFO     | gate_system.pipeline | Пайплайн распознавания запущен
+2026-10-02 16:57:50,716 | WARNING  | gate_system.diagnostics | Диагностика: камера не отвечает
+2026-10-02 16:57:50,991 | INFO     | gate_system.telegram | Telegram-бот запущен
+2026-10-02 16:57:51,670 | INFO     | gate_system.pipeline | Обнаружен номер — активный режим (частая обработка)
+2026-10-02 16:57:54,564 | INFO     | gate_system.ocr.nomeroff | Загрузчик моделей Nomeroff заменён на устойчивый (с докачкой)
+2026-10-02 16:57:54,564 | INFO     | gate_system.ocr.nomeroff | Загрузка пайплайна Nomeroff-Net: number_plate_detection_and_reading
+2026-10-02 16:58:14,912 | INFO     | gate_system.pipeline | Номер собран по кадрам: Х002МС177
+2026-10-02 16:58:14,919 | INFO     | gate_system.gate | Открытие ворот. Источник: auto
+2026-10-02 16:58:14,919 | INFO     | gate_system.relay | StubRelay: импульс 500 мс (замыкание контактов)
+2026-10-02 16:58:15,424 | INFO     | gate_system.gate | Ворота открыты (источник=auto)
+2026-10-02 16:58:15,435 | INFO     | gate_system.events | 🚗 Ворота открыты — Х002МС177
+2026-10-02 16:58:21,389 | INFO     | gate_system.network | NetworkMonitor остановлен
+2026-10-02 16:58:21,389 | INFO     | gate_system.diagnostics | Самодиагностика остановлена
+2026-10-02 16:58:21,389 | INFO     | gate_system.watchdog | Watchdog остановлен
+2026-10-02 16:58:21,390 | INFO     | gate_system.main | Сервис 'network' остановлен
+2026-10-02 16:58:21,390 | INFO     | gate_system.main | Сервис 'diagnostics' остановлен
+2026-10-02 16:58:21,390 | INFO     | gate_system.main | Сервис 'watchdog' остановлен
+2026-10-02 16:58:21,666 | INFO     | gate_system.main | Сервис 'telegram' остановлен
+2026-10-02 16:58:22,460 | INFO     | gate_system.camera | Камера закрыта
+2026-10-02 16:58:22,460 | INFO     | gate_system.pipeline | Пайплайн распознавания остановлен
+2026-10-02 16:58:22,460 | INFO     | gate_system.main | Сервис 'vision:camera' остановлен
+2026-10-02 16:58:22,460 | INFO     | gate_system.main | Все сервисы остановлены
+2026-10-02 16:58:22,460 | INFO     | gate_system.events | ⏹️ Система остановлена
+2026-10-02 16:58:22,461 | INFO     | gate_system.main | gate_system остановлен
