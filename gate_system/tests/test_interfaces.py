@@ -6,7 +6,7 @@
 """
 import pytest
 
-from interfaces import (
+from gate.core.interfaces import (
     Detector,
     FrameSource,
     GateController,
@@ -17,7 +17,7 @@ from interfaces import (
     Relay,
     WhitelistRepository,
 )
-from models import HealthStatus, OpenSource, PlateNumber
+from gate.core.models import HealthStatus, OpenSource
 
 
 ALL_PORTS = [

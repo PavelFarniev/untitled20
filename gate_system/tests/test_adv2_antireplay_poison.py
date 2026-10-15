@@ -9,9 +9,9 @@ so the gate does NOT open. A car that was denied and then legitimately authorize
 is locked out for up to the whole window (up to 3 minutes with shipped config),
 with no way for the owner to force it except waiting.
 """
-import pipeline
-from pipeline import AntiReplayGuard, AccessDecision
-from models import PlateNumber
+from gate.core import pipeline
+from gate.core.pipeline import AntiReplayGuard, AccessDecision
+from gate.core.models import PlateNumber
 
 
 class _WL:

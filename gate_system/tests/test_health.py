@@ -1,10 +1,10 @@
 """Тесты Watchdog (watchdog.py) и SelfDiagnostics (diagnostics.py)."""
 from datetime import datetime, timezone
 
-from watchdog import Watchdog
-from diagnostics import SelfDiagnostics
-from config import Config
-from models import PlateNumber
+from gate.services.watchdog import Watchdog
+from gate.services.diagnostics import SelfDiagnostics
+from gate.config import Config
+from gate.core.models import PlateNumber
 
 
 # --------------------------------- Watchdog ---------------------------------

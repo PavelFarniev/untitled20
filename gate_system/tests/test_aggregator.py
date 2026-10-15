@@ -1,5 +1,5 @@
 """Тесты сборки номера по кадрам (aggregator.py)."""
-from aggregator import PlateAggregator
+from gate.core.aggregator import PlateAggregator
 
 
 class TestPlateAggregator:
@@ -51,9 +51,3 @@ class TestPlateAggregator:
         agg = PlateAggregator(confirm=2)
         for r in ["???", "RUS", "12", ""]:
             assert agg.add(r) is None
-
-    def test_reset_clears_state(self):
-        agg = PlateAggregator(confirm=1)
-        agg.add("A123BC777")
-        agg.reset()
-        assert agg.add("A123BC777").value == "А123ВС777"  # снова можно выдать

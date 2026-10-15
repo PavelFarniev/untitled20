@@ -1,6 +1,6 @@
 """Тесты определения движения номера (motion.py)."""
-from motion import MotionGate
-from models import BBox
+from gate.core.motion import MotionGate
+from gate.core.models import BBox
 
 W = H = 1000  # удобный размер кадра: 1 пиксель = 0.001 нормированно
 

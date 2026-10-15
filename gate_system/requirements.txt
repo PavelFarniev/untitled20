@@ -1,23 +1,30 @@
-# Ядро (кроссплатформенно: macOS + Raspberry Pi OS)
-opencv-python-headless==4.10.0.84
+# gate_system — зависимости (macOS для разработки и Raspberry Pi 5 для работы).
+# Python 3.12 (Nomeroff-Net поддерживает 3.11–3.12; на 3.13 не работает).
+# Версии — те, что проверены в рабочем окружении .venv312.
+
+# --- Сборка/совместимость ---
+setuptools<81                 # pytorch_lightning 1.8.6 (зависимость Nomeroff) использует pkg_resources
+
+# --- Зрение ---
 numpy==1.26.4
-ultralytics>=8.3.12           # YOLOv8n (детекция авто/номера); >=8.3.12 нужно для Nomeroff
-easyocr==1.7.2                # OCR текста номера
+opencv-python-headless==4.10.0.84
 Pillow==10.4.0
+torch==2.13.0                 # на Pi ставится CPU-версия под aarch64
+torchvision==0.28.0
+ultralytics==8.4.96           # YOLO: детектор рамки номера (models/best.pt)
 
-# Точное распознавание номеров РФ (опционально, включается ocr.engine=nomeroff).
-# Лицензия GPL v3, рекомендуется Python 3.11–3.12. Раскомментируйте при использовании:
+# --- Распознавание номеров РФ (лицензия GPL v3) ---
 nomeroff-net==4.0.1
+pytorch-lightning==1.8.6
 
-# Telegram-бот (единый интерфейс управления: команды, настройки, логи)
+# --- Telegram-бот (единый интерфейс управления) ---
 python-telegram-bot==21.6
-httpx==0.27.2   # PTB 21.6 несовместим с httpx>=0.28 (убрали параметр proxies)
-socksio==1.0.0  # поддержка socks5-прокси для httpx (Telegram через прокси)
+httpx==0.27.2                 # PTB 21.6 несовместим с httpx>=0.28 (убрали параметр proxies)
+socksio==1.0.0                # socks5-прокси для Telegram
 
-# Системная диагностика (память, температура, диск)
+# --- Системная диагностика ---
 psutil==6.0.0
 
-# --- Только для Raspberry Pi (не ставится на macOS) ---
-# gpiozero==2.0            # управление реле через GPIO
-# RPi.GPIO==0.7.1
-# pyserial==3.5            # управление USB-реле
+# --- Только Raspberry Pi (Linux): реле на GPIO. На Pi 5 работает только через lgpio ---
+gpiozero==2.0.1; sys_platform == "linux"
+lgpio==0.2.2.0; sys_platform == "linux"

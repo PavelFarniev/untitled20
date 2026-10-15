@@ -4,10 +4,10 @@ Each test asserts the SAFE/correct behaviour and therefore FAILS against the
 current code, demonstrating a real security defect. Do NOT "fix" these by
 weakening the assertion — the point is to prove the defect exists.
 """
-from aggregator import PlateAggregator
-from utils import normalize_plate
-from models import PlateNumber
-import pipeline
+from gate.core.aggregator import PlateAggregator
+from gate.core.plates import normalize_plate
+from gate.core.models import PlateNumber
+from gate.core import pipeline
 
 
 class TestAggregatorPhantomPlate:

@@ -3,11 +3,11 @@ import json
 
 import pytest
 
-from config import ConfigStore
-from utils import tail_lines
-from telegram_bot import CommandRouter
-from whitelist import JsonWhitelistRepository
-from models import HealthStatus
+from gate.config import ConfigStore
+from gate.common.utils import tail_lines
+from gate.bot.telegram_bot import CommandRouter
+from helpers import make_repos
+from gate.core.models import HealthStatus
 
 OWNER = 42
 STRANGER = 7
@@ -52,7 +52,7 @@ class TestConfigStore:
     def test_set_protected_section_raises(self, tmp_path):
         store = ConfigStore(str(tmp_path / "config.json"))
         with pytest.raises(KeyError):
-            store.set("paths.allowed", "/etc/passwd")   # paths не редактируется
+            store.set("paths.database", "/etc/passwd")   # paths не редактируется
 
     def test_set_bad_int_raises(self, tmp_path):
         store = ConfigStore(str(tmp_path / "config.json"))
@@ -80,16 +80,14 @@ class TestTailLines:
 # ------------------------------- команды бота -------------------------------
 @pytest.fixture()
 def router(tmp_path):
-    allowed = tmp_path / "allowed.json"
-    allowed.write_text('{"allowed": ["А123ВС777"]}', encoding="utf-8")
     logs = tmp_path / "app.log"
     logs.write_text("2026-07-13 | INFO | старт\n2026-07-13 | INFO | кадр\n", encoding="utf-8")
     cfg = tmp_path / "config.json"
-    cfg.write_text(json.dumps({"relay": {"backend": "stub", "pulse_ms": 500}}), encoding="utf-8")
+    cfg.write_text(json.dumps({"relay": {"enabled": False, "pulse_ms": 500}}), encoding="utf-8")
 
     return CommandRouter(
         owner_id=OWNER,
-        whitelist=JsonWhitelistRepository(str(allowed)),
+        whitelist=make_repos(tmp_path, plates=["А123ВС777"])[0],
         gate_open=lambda src: None,
         status_provider=lambda: HealthStatus(),
         history_provider=lambda limit: [],

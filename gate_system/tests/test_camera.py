@@ -1,4 +1,4 @@
-"""Тесты RTSPCamera на видео-заглушке (без реального RTSP).
+"""Тесты RTSPCamera на сгенерированном видеофайле (без реального RTSP).
 
 Источником для cv2.VideoCapture может быть и видеофайл — это позволяет
 протестировать логику чтения и переподключения детерминированно.
@@ -7,7 +7,7 @@ import cv2
 import numpy as np
 import pytest
 
-from camera import RTSPCamera
+from gate.vision.camera import RTSPCamera
 
 
 @pytest.fixture()

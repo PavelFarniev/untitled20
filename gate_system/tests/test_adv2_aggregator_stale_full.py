@@ -16,7 +16,7 @@ in the region code (same series, different region), e.g.:
 Production builds PlateAggregator(confirm=cfg.access.confirm_frames) with
 reemit_after_s defaulting to 200s (main.py) — exactly the parameters used here.
 """
-from aggregator import PlateAggregator
+from gate.core.aggregator import PlateAggregator
 
 
 def test_stale_full_read_authorizes_a_different_car_sharing_the_main():

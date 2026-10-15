@@ -1,15 +1,14 @@
 """Тесты Telegram: CommandRouter (авторизация, команды) и TelegramNotifier."""
 import pytest
 
-from telegram_bot import (
+from gate.bot.telegram_bot import (
     CommandRouter,
     PhotoReply,
     TelegramNotifier,
-    prettify_log_lines,
     prettify_event_lines,
 )
-from whitelist import JsonWhitelistRepository
-from models import CheckResult, Event, HealthStatus, OpenSource, PlateNumber
+from helpers import make_repos
+from gate.core.models import CheckResult, Event, HealthStatus, OpenSource, PlateNumber
 
 OWNER = 42
 STRANGER = 999
@@ -17,9 +16,7 @@ STRANGER = 999
 
 @pytest.fixture()
 def router(tmp_path):
-    allowed = tmp_path / "allowed.json"
-    allowed.write_text('{"allowed": ["А123ВС777"]}', encoding="utf-8")
-    wl = JsonWhitelistRepository(str(allowed))
+    wl, _, _ = make_repos(tmp_path, plates=["А123ВС777"])
 
     opened = []
     health = HealthStatus(camera_ok=True, ocr_ok=True, telegram_online=True,
@@ -108,31 +105,6 @@ class TestCallbacks:
 
 
 # --------------------------------- Notifier ---------------------------------
-class TestPrettifyLogs:
-    def test_standard_line_formatted(self):
-        line = "2026-07-17 00:24:34,857 | INFO     | gate_system.pipeline | Распознан номер"
-        out = prettify_log_lines([line])
-        assert "🟢" in out and "00:24:34" in out
-        assert "pipeline: Распознан номер" in out
-        assert "gate_system." not in out   # префикс убран
-
-    def test_level_emojis(self):
-        w = "2026-07-17 00:24:34,857 | WARNING  | gate_system.camera | нет кадра"
-        e = "2026-07-17 00:24:34,857 | ERROR    | gate_system.main | сбой"
-        assert "⚠️" in prettify_log_lines([w])
-        assert "❌" in prettify_log_lines([e])
-
-    def test_non_standard_line_kept_as_is(self):
-        out = prettify_log_lines(["Traceback (most recent call last):"])
-        assert "Traceback (most recent call last):" in out
-
-    def test_truncated_to_telegram_limit(self):
-        big = ["2026-07-17 00:24:34,857 | INFO     | gate_system.x | " + "a" * 120
-               for _ in range(300)]
-        out = prettify_log_lines(big)
-        assert len(out) <= 3802   # лимит 3800 + префикс "…\n"
-
-
 class TestPrettifyEvents:
     def test_event_line_formatted(self):
         line = "2026-07-17 00:24:34 | 🚗 Ворота открыты — Т198ТТ197"

@@ -1,0 +1,78 @@
+{
+  "cameras": [
+    {
+      "name": "въезд",
+      "rtsp_url": "rtsp://admin:ПАРОЛЬ@192.168.1.64:554/Streaming/Channels/101",
+      "role": "entry",
+      "require_motion": false,
+      "process_every_n_frame": 3
+    },
+    {
+      "name": "выезд",
+      "rtsp_url": "rtsp://admin:ПАРОЛЬ@192.168.1.65:554/Streaming/Channels/101",
+      "role": "exit",
+      "require_motion": true,
+      "process_every_n_frame": 3
+    }
+  ],
+  "detection": {
+    "plate_model_path": "models/best.pt",
+    "plate_conf": 0.3,
+    "motion_threshold": 0.02,
+    "motion_confirm_frames": 2,
+    "motion_memory_s": 8.0,
+    "adaptive": true,
+    "idle_interval_s": 1.0,
+    "active_hold_s": 5.0
+  },
+  "ocr": {
+    "upscale": 1.0
+  },
+  "relay": {
+    "enabled": false,
+    "gpio_pin": 17,
+    "active_high": true,
+    "pulse_ms": 500,
+    "min_interval_s": 3.0
+  },
+  "telegram": {
+    "enabled": true,
+    "token": "ТОКЕН_ОТ_BOTFATHER",
+    "owner_id": 0,
+    "reconnect_delay_s": 5.0,
+    "proxy_url": ""
+  },
+  "proxy": {
+    "enabled": false,
+    "api_key": "",
+    "version": 4,
+    "country": "nl",
+    "period_days": 30,
+    "buy_before_days": 3,
+    "max_buys_per_30d": 3,
+    "cooldown_hours": 24.0,
+    "descr": "gate_system",
+    "state_path": "data/proxy_state.json",
+    "check_interval_hours": 6.0
+  },
+  "access": {
+    "antireplay_window_s": 180,
+    "confirm_frames": 2
+  },
+  "paths": {
+    "database": "data/gate.db",
+    "photos_dir": "photos",
+    "logs_dir": "logs"
+  },
+  "diagnostics": {
+    "interval_s": 60,
+    "min_disk_free_percent": 10.0,
+    "max_cpu_temp_c": 75.0,
+    "camera_stale_s": 15.0
+  },
+  "log_level": "INFO",
+  "log_max_mb": 5.0,
+  "log_backups": 3,
+  "photos_max_files": 500,
+  "history_max_records": 5000
+}

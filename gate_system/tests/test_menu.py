@@ -3,16 +3,15 @@ import json
 
 import pytest
 
-from menu import (
+from gate.bot.menu import (
     MenuController,
-    BTN_OPEN, BTN_PHOTO, BTN_STATUS, BTN_HISTORY, BTN_LIST,
-    BTN_LOGS, BTN_SETTINGS, BTN_ADMINS,
+    BTN_OPEN, BTN_PHOTO, BTN_STATUS, BTN_LIST, BTN_LOGS,
+    BTN_SETTINGS, BTN_ADMINS,
 )
-from telegram_bot import CommandRouter
-from whitelist import JsonWhitelistRepository
-from admins import AdminStore
-from config import ConfigStore
-from models import HealthStatus, PlateNumber
+from gate.bot.telegram_bot import CommandRouter
+from helpers import make_repos
+from gate.config import ConfigStore
+from gate.core.models import HealthStatus
 
 OWNER = 42
 ADMIN = 100
@@ -21,19 +20,16 @@ STRANGER = 7
 
 @pytest.fixture()
 def ctx(tmp_path):
-    allowed = tmp_path / "allowed.json"
-    allowed.write_text('{"allowed": ["А123ВС777"]}', encoding="utf-8")
+    whitelist, admin_store, _ = make_repos(tmp_path, plates=["А123ВС777"], admins=[ADMIN])
     logs = tmp_path / "events.log"
     logs.write_text("2026-07-17 00:24:34 | 🚗 Ворота открыты — А123ВС777\n", encoding="utf-8")
     cfg = tmp_path / "config.json"
     cfg.write_text(json.dumps({"relay": {"pulse_ms": 500}}), encoding="utf-8")
 
-    admin_store = AdminStore(str(tmp_path / "admins.json"))
-    admin_store.add(ADMIN)
     opened = []
     router = CommandRouter(
         owner_id=OWNER,
-        whitelist=JsonWhitelistRepository(str(allowed)),
+        whitelist=whitelist,
         gate_open=lambda src: opened.append(src),
         status_provider=lambda: HealthStatus(camera_ok=True),
         history_provider=lambda limit: [],
@@ -77,11 +73,17 @@ class TestButtons:
     def test_status_button(self, ctx):
         assert "Статус" in ctx["menu"].handle_text(ADMIN, BTN_STATUS).text
 
-    def test_list_button_has_inline(self, ctx):
-        r = ctx["menu"].handle_text(ADMIN, BTN_LIST)
+    def test_list_button_has_inline_for_owner(self, ctx):
+        r = ctx["menu"].handle_text(OWNER, BTN_LIST)
         assert "А123ВС777" in r.text
         labels = [b[0] for row in r.inline for b in row]
-        assert "➕ Добавить" in labels and "❌ Удалить" in labels
+        assert "➕ Добавить" in labels and "✏️ Изменить" in labels and "❌ Удалить" in labels
+
+    def test_list_button_admin_sees_list_without_edit_buttons(self, ctx):
+        """Админ смотрит белый список, но править его не может — кнопок правки нет."""
+        r = ctx["menu"].handle_text(ADMIN, BTN_LIST)
+        assert "А123ВС777" in r.text
+        assert not r.inline
 
     def test_logs_button_owner(self, ctx):
         assert "событ" in ctx["menu"].handle_text(OWNER, BTN_LOGS).text.lower()

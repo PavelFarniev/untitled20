@@ -3,8 +3,8 @@
 Тяжёлая библиотека не нужна: логика распознавания инъектируется через
 `recognizer`, поэтому проверяем разбор кандидатов и нормализацию номера.
 """
-from nomeroff_ocr import NomeroffOcrEngine, _flatten_texts
-from models import OcrResult
+from gate.vision.nomeroff_ocr import NomeroffOcrEngine, _flatten_texts
+from gate.core.models import OcrResult
 
 
 class TestFlattenTexts:

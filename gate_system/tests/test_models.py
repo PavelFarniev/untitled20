@@ -3,7 +3,7 @@ from datetime import datetime, timezone
 
 import pytest
 
-from models import (
+from gate.core.models import (
     AccessResult,
     BBox,
     CheckResult,
@@ -12,7 +12,6 @@ from models import (
     OcrResult,
     OpenSource,
     PlateNumber,
-    Vehicle,
 )
 
 
@@ -93,8 +92,3 @@ class TestAccessResultAndHealth:
         h = HealthStatus()
         assert h.camera_ok is False
         assert h.extra == {}
-
-    def test_vehicle_optional_fields(self):
-        v = Vehicle(vehicle_box=BBox(0, 0, 10, 10))
-        assert v.plate_box is None
-        assert v.ocr is None

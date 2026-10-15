@@ -1,58 +1,32 @@
-"""Тесты двухуровневого доступа: AdminStore и роли owner/admin в CommandRouter."""
+"""Тесты двухуровневого доступа: роли owner/admin в CommandRouter."""
 import json
 
 import pytest
 
-from admins import AdminStore
-from telegram_bot import CommandRouter
-from whitelist import JsonWhitelistRepository
-from config import ConfigStore
-from models import HealthStatus
+from gate.bot.telegram_bot import CommandRouter
+from helpers import make_repos
+from gate.config import ConfigStore
+from gate.core.models import HealthStatus
 
 OWNER = 42
 ADMIN = 100
 STRANGER = 7
 
 
-# --------------------------------- AdminStore ---------------------------------
-class TestAdminStore:
-    def test_add_contains_persist(self, tmp_path):
-        p = tmp_path / "admins.json"
-        store = AdminStore(str(p))
-        store.add(100)
-        assert store.contains(100) is True
-        assert AdminStore(str(p)).contains(100) is True   # прочитано с диска
-
-    def test_add_idempotent(self, tmp_path):
-        store = AdminStore(str(tmp_path / "admins.json"))
-        store.add(100)
-        store.add(100)
-        assert store.list_ids() == [100]
-
-    def test_remove(self, tmp_path):
-        store = AdminStore(str(tmp_path / "admins.json"))
-        store.add(100)
-        store.remove(100)
-        assert store.contains(100) is False
-
-
 # --------------------------------- fixture ---------------------------------
 @pytest.fixture()
 def ctx(tmp_path):
-    allowed = tmp_path / "allowed.json"
-    allowed.write_text('{"allowed": ["А123ВС777"]}', encoding="utf-8")
+    whitelist, admin_store, _ = make_repos(tmp_path, plates=["А123ВС777"], admins=[ADMIN])
     logs = tmp_path / "app.log"
     logs.write_text("line\n", encoding="utf-8")
     cfg = tmp_path / "config.json"
     cfg.write_text(json.dumps({"relay": {"pulse_ms": 500}}), encoding="utf-8")
 
-    admin_store = AdminStore(str(tmp_path / "admins.json"))
-    admin_store.add(ADMIN)
 
     opened = []
     router = CommandRouter(
         owner_id=OWNER,
-        whitelist=JsonWhitelistRepository(str(allowed)),
+        whitelist=whitelist,
         gate_open=lambda src: opened.append(src),
         status_provider=lambda: HealthStatus(),
         history_provider=lambda limit: [],

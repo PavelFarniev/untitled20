@@ -1,8 +1,8 @@
 """Тесты координатора камер (coordinator.py) и списка камер (config)."""
 import json
 
-from coordinator import CameraCoordinator
-from config import Config, CameraSpec
+from gate.core.coordinator import CameraCoordinator
+from gate.config import Config
 
 
 class TestCameraCoordinator:

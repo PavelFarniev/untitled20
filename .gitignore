@@ -1,3 +1,28 @@
-*/.venv/*
-*/.venv312/*
-*/config/*
+# --- Python ---
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+.venv312/
+venv/
+
+# --- IDE и macOS ---
+.idea/
+.DS_Store
+
+# --- Секреты: настоящий конфиг (токен бота, ключ proxy6, пароли камер) не публикуем.
+#     В репозитории только пример: gate_system/config/config.example.json
+gate_system/config/config.json
+
+# --- Рабочие данные системы (у каждой машины свои) ---
+gate_system/data/
+gate_system/logs/
+gate_system/photos/
+gate_system/inspect_out/
+gate_system/detector_out/
+
+# --- Тестовые видео и архивы ---
+*.mp4
+*.mov
+*.MOV
+*.zip

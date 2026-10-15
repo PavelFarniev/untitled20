@@ -1,0 +1,26 @@
+# Шаблон systemd-сервиса. __USER__ и __DIR__ подставляет deploy/install.sh.
+[Unit]
+Description=Gate System — автоматическое открытие ворот по номеру
+After=network-online.target time-sync.target
+Wants=network-online.target
+# Перезапускать без ограничения числа попыток (устойчивость 24/7).
+# Параметр должен стоять именно в [Unit], иначе systemd его игнорирует.
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=__USER__
+SupplementaryGroups=gpio video
+WorkingDirectory=__DIR__
+ExecStart=__DIR__/.venv/bin/python __DIR__/main.py
+Environment=PYTHONUNBUFFERED=1
+Environment=GPIOZERO_PIN_FACTORY=lgpio
+Environment=NO_ALBUMENTATIONS_UPDATE=1
+Restart=always
+RestartSec=5
+# Загрузка моделей распознавания на Pi занимает время — даём корректно завершиться.
+TimeoutStopSec=30
+KillSignal=SIGTERM
+
+[Install]
+WantedBy=multi-user.target

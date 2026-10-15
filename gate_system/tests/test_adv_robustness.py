@@ -6,14 +6,9 @@ degrading gracefully. Each test errors/fails against the current code.
 """
 import json
 
-import pytest
 
-import config
-import database
-import whitelist
-import history
-import proxy
-from models import PlateNumber
+from gate import config
+from gate.services import proxy
 
 
 class TestConfigLoadHostileFile:
@@ -39,35 +34,6 @@ class TestConfigLoadHostileFile:
         p.write_text(json.dumps({"camera": [1, 2, 3]}), encoding="utf-8")
         cfg = config.Config.load(p)
         assert isinstance(cfg, config.Config)
-
-
-class TestWhitelistMalformedFile:
-    """JsonWhitelistRepository._load assumes the file is a dict and calls
-    ``data.get("allowed")``. A hand-edited allowed.json that is a bare JSON
-    list (a very natural mistake) is valid JSON, so database.read_json returns
-    it unchanged, and is_allowed raises AttributeError. Result: EVERY access
-    check crashes -> the gate stops working entirely (DoS)."""
-
-    def test_allowed_json_as_bare_list_does_not_crash_is_allowed(self, tmp_path):
-        p = tmp_path / "allowed.json"
-        p.write_text(json.dumps(["А123ВС777"]), encoding="utf-8")
-        repo = whitelist.JsonWhitelistRepository(str(p))
-        # Should treat malformed file as "no such plate", not crash.
-        assert repo.is_allowed(PlateNumber("А123ВС777")) in (True, False)
-
-
-class TestHistoryMalformedRecord:
-    """HistoryStore._deserialize does r["timestamp"] / r["result"] with no
-    guard. One malformed record (missing key) in history.json makes recent()
-    raise KeyError, breaking the /history Telegram command permanently."""
-
-    def test_recent_survives_malformed_record(self, tmp_path):
-        p = tmp_path / "history.json"
-        p.write_text(json.dumps([{"result": "granted"}]), encoding="utf-8")  # no timestamp
-        store = history.HistoryStore(str(p))
-        # Should skip/degrade, not raise.
-        events = store.recent()
-        assert isinstance(events, list)
 
 
 class TestProxyMalformedApiResponse:

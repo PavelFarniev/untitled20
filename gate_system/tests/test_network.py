@@ -1,5 +1,5 @@
 """Тесты NetworkMonitor: переходы онлайн/оффлайн и колбэки."""
-from network import NetworkMonitor
+from gate.services.network import NetworkMonitor
 
 
 class TestNetworkMonitor:

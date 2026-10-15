@@ -6,7 +6,7 @@ import json
 
 import pytest
 
-from proxy import build_proxy_url, Proxy6Client, Proxy6Error, ProxyManager
+from gate.services.proxy import build_proxy_url, Proxy6Client, Proxy6Error, ProxyManager
 
 NOW = 1_000_000_000
 DAY = 86400
@@ -129,6 +129,7 @@ class TestProxyManager:
                             bought=proxy_dict(host="new"))
         dec = make_manager(client, tmp_path).ensure()
         assert client.buys == 0                                 # кулдаун 24ч
+        assert dec.purchased is False and "old" in dec.url      # остаёмся на старом
 
     def test_buy_error_keeps_old(self, tmp_path):
         client = FakeClient(proxies=[proxy_dict(host="old", end_days=1)],

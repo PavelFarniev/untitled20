@@ -3,7 +3,7 @@ import logging
 import sys
 import threading
 
-from logger import setup_logging
+from gate.common.logger import setup_logging
 
 
 class TestSetupLogging:
@@ -44,3 +44,22 @@ class TestSetupLogging:
         h = handlers[0]
         assert h.maxBytes == int(2.0 * 1024 * 1024)
         assert h.backupCount == 4
+
+
+def test_secrets_never_reach_log_file(tmp_path):
+    """Токен бота, ключ proxy6 и пароли в URL маскируются в файле журнала."""
+    import logging as _logging
+    from gate.common.logger import setup_logging
+    setup_logging(str(tmp_path), "INFO")
+    log = _logging.getLogger("gate_system.test")
+    log.info("POST https://api.telegram.org/bot1234567890:FAKEtokenFAKEtokenFAKEtoken_xyz/getMe")
+    log.info("GET https://px6.link/api/fakefake00-fakefake11-fakefake22/getproxy")
+    try:
+        raise ConnectionError("socks5://user:pa55word@1.2.3.4:8000 refused")
+    except ConnectionError:
+        log.exception("ошибка прокси")
+    for h in _logging.getLogger().handlers:
+        h.flush()
+    text = (tmp_path / "gate_system.log").read_text(encoding="utf-8")
+    assert "FAKEtoken" not in text and "fakefake00" not in text and "pa55word" not in text
+    assert "bot***" in text and "px6.link/api/***" in text

@@ -2,7 +2,7 @@
 import threading
 import time
 
-from main import GateApp
+from gate.app import GateApp
 
 
 class FakeService:
@@ -94,7 +94,7 @@ class TestGateAppLifecycle:
 
 class TestTelegramService:
     def test_stop_delegates_to_notifier(self):
-        from main import TelegramService
+        from gate.app import TelegramService
 
         class FakeNotifier:
             def __init__(self):

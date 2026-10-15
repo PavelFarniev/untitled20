@@ -8,13 +8,13 @@ OCR, уведомления) и НАСТОЯЩИМИ реализациями х
 import numpy as np
 import pytest
 
-from interfaces import Detector, FrameSource, Notifier, OcrEngine
-from models import BBox, CheckResult, OcrResult, OpenSource, PlateNumber
-from pipeline import AccessDecision, AntiReplayGuard, RecognitionPipeline
-from whitelist import JsonWhitelistRepository
-from history import HistoryStore, PhotoStorage
-from relay import StubRelay
-from gate_controller import RelayGateController
+from gate.core.interfaces import Detector, FrameSource, Notifier, OcrEngine
+from gate.core.models import BBox, CheckResult, OcrResult, OpenSource, PlateNumber
+from gate.core.pipeline import AccessDecision, AntiReplayGuard, RecognitionPipeline
+from gate.storage.history import PhotoStorage
+from helpers import make_repos
+from gate.hardware.relay import DryRunRelay
+from gate.hardware.gate_controller import RelayGateController
 
 
 # ------------------------------- фейки ввода -------------------------------
@@ -45,8 +45,6 @@ class FakeSource(FrameSource):
 
 
 class FakeDetector(Detector):
-    def detect_vehicle(self, frame):
-        return [BBox(0, 0, 100, 60, 0.9)]
 
     def detect_plate(self, frame):
         return [BBox(10, 40, 90, 55, 0.8)]
@@ -81,12 +79,8 @@ class SpyNotifier(Notifier):
 @pytest.fixture()
 def wiring(tmp_path):
     """Собрать AccessDecision с реальными хранилищами/реле и шпионом уведомлений."""
-    allowed = tmp_path / "allowed.json"
-    allowed.write_text('{"allowed": ["А123ВС777"]}', encoding="utf-8")
-
-    whitelist = JsonWhitelistRepository(str(allowed))
-    history = HistoryStore(str(tmp_path / "hist.json"))
-    gate = RelayGateController(StubRelay(sleeper=lambda s: None), pulse_ms=500)
+    whitelist, _, history = make_repos(tmp_path, plates=["А123ВС777"])
+    gate = RelayGateController(DryRunRelay(sleeper=lambda s: None), pulse_ms=500)
     notifier = SpyNotifier()
     guard = AntiReplayGuard(window_s=30)
     photos = PhotoStorage(str(tmp_path / "photos"), writer=lambda p, f: True)
@@ -169,12 +163,10 @@ class TestAccessDecision:
             def is_online(self):
                 return False
 
-        allowed = tmp_path / "a.json"
-        allowed.write_text('{"allowed": ["А123ВС777"]}', encoding="utf-8")
-        history = HistoryStore(str(tmp_path / "h.json"))
+        whitelist, _, history = make_repos(tmp_path, plates=["А123ВС777"])
         d = AccessDecision(
-            JsonWhitelistRepository(str(allowed)),
-            RelayGateController(StubRelay(sleeper=lambda s: None), 500),
+            whitelist,
+            RelayGateController(DryRunRelay(sleeper=lambda s: None), 500),
             history, BrokenNotifier(), AntiReplayGuard(30),
         )
         r = d.handle(PlateNumber("А123ВС777"), frame=object())
@@ -184,8 +176,6 @@ class TestAccessDecision:
 
 # ----------------------------- RecognitionPipeline ---------------------------
 class StationaryPlateDetector(Detector):
-    def detect_vehicle(self, frame):
-        return []
 
     def detect_plate(self, frame):
         return [BBox(40, 40, 60, 60)]   # рамка всегда на одном месте
@@ -195,8 +185,6 @@ class MovingPlateDetector(Detector):
     def __init__(self):
         self._x = 10
 
-    def detect_vehicle(self, frame):
-        return []
 
     def detect_plate(self, frame):
         self._x += 20                    # рамка едет по кадру
@@ -205,22 +193,20 @@ class MovingPlateDetector(Detector):
 
 class TestMotionGating:
     def test_stationary_plate_not_opened(self, wiring, capsys):
-        from motion import MotionGate
+        from gate.core.motion import MotionGate
         frames = [np.zeros((100, 100, 3), np.uint8) for _ in range(4)]
         pipe = RecognitionPipeline(None, StationaryPlateDetector(), FakeOcr("А123ВС777"),
-                                   wiring["decision"], require_vehicle=False,
-                                   motion_gate=MotionGate(threshold=0.05, confirm_frames=1))
+                                   wiring["decision"], motion_gate=MotionGate(threshold=0.05, confirm_frames=1))
         src = FakeSource(frames, on_empty=pipe.stop)
         pipe._source = src
         pipe.run_forever()
         assert "Gate opened" not in capsys.readouterr().out   # стоит → не открывать
 
     def test_moving_plate_opens(self, wiring, capsys):
-        from motion import MotionGate
+        from gate.core.motion import MotionGate
         frames = [np.zeros((100, 100, 3), np.uint8) for _ in range(5)]
         pipe = RecognitionPipeline(None, MovingPlateDetector(), FakeOcr("А123ВС777"),
-                                   wiring["decision"], require_vehicle=False,
-                                   motion_gate=MotionGate(threshold=0.05, confirm_frames=1))
+                                   wiring["decision"], motion_gate=MotionGate(threshold=0.05, confirm_frames=1))
         src = FakeSource(frames, on_empty=pipe.stop)
         pipe._source = src
         pipe.run_forever()
@@ -229,24 +215,22 @@ class TestMotionGating:
 
 class TestExitMute:
     def test_exit_muted_suppresses_open(self, wiring, capsys):
-        from coordinator import CameraCoordinator
+        from gate.core.coordinator import CameraCoordinator
         coord = CameraCoordinator(clock=lambda: 0.0)
         coord.note_open("entry")   # только что открыли на въезд → выезд приглушён
         frames = [np.zeros((100, 100, 3), np.uint8) for _ in range(4)]
         pipe = RecognitionPipeline(None, MovingPlateDetector(), FakeOcr("А123ВС777"),
-                                   wiring["decision"], require_vehicle=False,
-                                   role="exit", coordinator=coord)
+                                   wiring["decision"], role="exit", coordinator=coord)
         pipe._source = FakeSource(frames, on_empty=pipe.stop)
         pipe.run_forever()
         assert "Gate opened" not in capsys.readouterr().out
 
     def test_exit_not_muted_opens(self, wiring, capsys):
-        from coordinator import CameraCoordinator
+        from gate.core.coordinator import CameraCoordinator
         coord = CameraCoordinator(clock=lambda: 0.0)   # заезда не было → не приглушён
         frames = [np.zeros((100, 100, 3), np.uint8) for _ in range(4)]
         pipe = RecognitionPipeline(None, MovingPlateDetector(), FakeOcr("А123ВС777"),
-                                   wiring["decision"], require_vehicle=False,
-                                   role="exit", coordinator=coord)
+                                   wiring["decision"], role="exit", coordinator=coord)
         pipe._source = FakeSource(frames, on_empty=pipe.stop)
         pipe.run_forever()
         assert "Gate opened" in capsys.readouterr().out
@@ -286,7 +270,7 @@ class TestRecognitionPipeline:
         assert ocr.calls >= 1 and src.closed is True
 
     def test_ocr_fallback_without_plate_model(self, wiring, capsys):
-        # Модель номера не находит рамок -> OCR идёт по области автомобиля.
+        # Модель рамки не нашла номер -> распознаватель читает весь кадр.
         class NoPlateDetector(FakeDetector):
             def detect_plate(self, frame):
                 return []
@@ -296,20 +280,7 @@ class TestRecognitionPipeline:
         src = FakeSource([object()], on_empty=pipe.stop)
         pipe._source = src
         pipe.run_forever()
-        assert "Gate opened" in capsys.readouterr().out   # номер распознан без модели номера
-
-    def test_require_vehicle_false_ocr_full_frame(self, wiring, capsys):
-        # Без требования машины: детектор не вызывается, OCR читает весь кадр.
-        class BoomDetector(FakeDetector):
-            def detect_vehicle(self, frame):
-                raise AssertionError("detect_vehicle не должен вызываться")
-
-        pipe = RecognitionPipeline(None, BoomDetector(), FakeOcr("А123ВС777"),
-                                   wiring["decision"], require_vehicle=False)
-        src = FakeSource([object()], on_empty=pipe.stop)
-        pipe._source = src
-        pipe.run_forever()
-        assert "Gate opened" in capsys.readouterr().out   # номер распознан без детекции авто
+        assert "Gate opened" in capsys.readouterr().out   # номер распознан по всему кадру
 
     def test_heartbeat_called(self, wiring):
         beats = []

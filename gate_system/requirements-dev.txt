@@ -1,0 +1,4 @@
+# Для разработки и тестов (на Pi не нужно).
+-r requirements.txt
+pytest>=8
+pyflakes>=3
