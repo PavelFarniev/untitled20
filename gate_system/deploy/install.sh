@@ -93,6 +93,10 @@ if uv pip list --python "$PY" 2>/dev/null | grep -qiE '^(nvidia-|cuda-toolkit)';
         | xargs -r uv pip uninstall --python "$PY"
 fi
 "$PY" -c "import torch, cv2; print('  torch', torch.__version__, '| opencv', cv2.__version__)"
+# Проверяем, что распознаватель импортируется (иначе ошибка всплыла бы только при загрузке моделей).
+"$PY" -c "import nomeroff_net" 2>/tmp/gate-nomeroff-import.txt \
+    || { tail -5 /tmp/gate-nomeroff-import.txt; die "Nomeroff-Net не импортируется — пришлите эти строки"; }
+echo "  nomeroff-net импортируется"
 
 # --------------------------------------------------------------------------- 4
 say "4/8 Доступ к GPIO (реле)"

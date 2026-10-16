@@ -16,6 +16,10 @@ ultralytics==8.4.96           # YOLO: детектор рамки номера (
 # --- Распознавание номеров РФ (лицензия GPL v3) ---
 nomeroff-net==4.0.1
 pytorch-lightning==1.8.6
+# Nomeroff импортирует эти пакеты, но не объявляет их в своих зависимостях.
+# modelhub-client есть только на GitHub (коммит — тот же, что работает на Маке).
+modelhub-client @ git+https://github.com/ria-com/modelhub-client.git@b6d4ec55554494c9bf3cb9816249d7946368ed97
+pyturbojpeg==2.5.0
 
 # --- Telegram-бот (единый интерфейс управления) ---
 python-telegram-bot==21.6
